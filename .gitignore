@@ -8,3 +8,5 @@ Thumbs.db
 # Local MySQL dumps / exports (keep repo lightweight)
 *.sql.bak
 dumps/
+
+outputs/gh_auth_*.txt
