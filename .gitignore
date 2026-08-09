@@ -1,0 +1,10 @@
+# Ignore OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local MySQL dumps / exports (keep repo lightweight)
+*.sql.bak
+dumps/

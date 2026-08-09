@@ -1,0 +1,23 @@
+company,year,total_laid_off,ranking
+Uber,2020,7525.0,1
+Booking.com,2020,4375.0,2
+Groupon,2020,2800.0,3
+Swiggy,2020,2250.0,4
+Airbnb,2020,1900.0,5
+Bytedance,2021,3600.0,1
+Katerra,2021,2434.0,2
+Zillow,2021,2000.0,3
+Instacart,2021,1877.0,4
+WhiteHat Jr,2021,1800.0,5
+Meta,2022,11000.0,1
+Amazon,2022,10150.0,2
+Cisco,2022,4100.0,3
+Peloton,2022,4084.0,4
+Carvana,2022,4000.0,5
+Philips,2022,4000.0,5
+Google,2023,12000.0,1
+Microsoft,2023,10000.0,2
+Ericsson,2023,8500.0,3
+Amazon,2023,8000.0,4
+Salesforce,2023,8000.0,4
+Dell,2023,6650.0,5

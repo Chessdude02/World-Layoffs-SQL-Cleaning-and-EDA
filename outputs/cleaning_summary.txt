@@ -1,0 +1,7 @@
+Cleaning run summary
+====================
+Raw rows loaded: 2361
+Cleaned rows in layoffs_staging2: 1995
+Date range: 2020-03-11 to 2023-03-06
+Columns after drop row_num: company, location, industry, total_laid_off, percentage_laid_off, date, stage, country, funds_raised_millions
+Script: sql/02_data_cleaning.sql (executed successfully against MariaDB 10.4.24 / XAMPP)
