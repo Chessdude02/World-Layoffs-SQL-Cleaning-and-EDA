@@ -17,11 +17,13 @@ World-Layoffs-SQL-Cleaning-and-EDA/
 │   ├── 02_data_cleaning.sql        # Staging, dedupe, standardize, nulls
 │   └── 03_eda.sql                  # Metrics, aggregates, rolling totals, rankings
 ├── scripts/
-│   └── generate_eda_charts.py      # Export chart PNGs from cleaned table
+│   ├── generate_eda_charts.py      # Export chart PNGs from cleaned table
+│   └── measure_outcomes.py         # Before/after data quality + tested findings
 ├── outputs/
 │   ├── images/                     # EDA chart PNGs
 │   ├── *.csv                       # Query result exports + cleaned table
 │   ├── cleaning_summary.txt
+│   ├── measured_outcomes.md        # Output of measure_outcomes.py
 │   └── eda_key_results.txt
 └── README.md
 ```
@@ -41,6 +43,13 @@ pip install pymysql pandas matplotlib
 python scripts/generate_eda_charts.py
 ```
 
+6. (Optional) Measure outcomes from the CSVs (no database needed):
+
+```bash
+pip install pandas scipy
+python scripts/measure_outcomes.py
+```
+
 ---
 
 ## Cleaning results (executed run)
@@ -52,6 +61,33 @@ python scripts/generate_eda_charts.py
 | Date range | 2020-03-11 → 2023-03-06 |
 
 Pipeline: staging → `ROW_NUMBER` dedupe → `TRIM` / Crypto consolidation / country trailing `.` / `STR_TO_DATE` → blank→NULL + industry self-join → drop rows missing both layoff metrics → drop `row_num`.
+
+---
+
+## Measured outcomes
+
+From `scripts/measure_outcomes.py` (full report: [`outputs/measured_outcomes.md`](outputs/measured_outcomes.md)).
+
+**Data quality, raw vs cleaned**
+
+| Check | Raw | Cleaned |
+|-------|-----|---------|
+| Exact duplicate rows | 5 | 0 |
+| Company names with extra whitespace | 11 | 0 |
+| Non-standard industry labels | 3 | 0 |
+| Countries with trailing `.` | 4 | 0 |
+| Missing industry | 4 | 1 |
+| No layoff count and no layoff % | 362 | 0 |
+| **Rows with at least one defect** | **384 (16.3%)** | **1 (0.1%)** |
+
+A pandas replay of the SQL rules gives the same 1,995 rows as the MySQL output.
+
+**Tested findings**
+
+- Seed–Series B startups cut a median **30%** of staff vs **11%** for Post-IPO companies (Mann-Whitney U, p < 1e-40), and were **~15x** more likely to shut down entirely (14.8% vs 1.0%).
+- Funding raised vs % of staff cut: Spearman ρ = **−0.34** (n = 1,572).
+- **54%** of all layoffs happened in six months (Oct 2022 – Mar 2023).
+- **65 events** (4% of events) account for **48%** of all layoffs.
 
 ---
 
